@@ -6,14 +6,43 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule } from './product/product.module';
 import { VendorModule } from './vendor/vendor.module';
 import { SharedModule } from './shared/shared.module';
+import { CartModule } from './cart/cart.module';
+import { UserModule } from './user/user.module';
+import { OrderModule } from './order/order.module';
+import { CartSchema } from './cart/entities/cart-entity';
+import { CartItemSchema } from './cart/entities/cart-item.entity';
+import { UserSchema } from './user/entities/user.entity';
+import { VendorSchema } from './vendor/entities/vendor.entity';
+import { ProductSchema } from './product/schema/product.model';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_URL),
+    MongooseModule.forFeature([
+      {
+        name: 'Product',
+        schema: ProductSchema,
+      },
+      {
+        name: 'Vendor',
+        schema: VendorSchema,
+      },
+      {
+        name: 'Cart',
+        schema: CartSchema,
+      },
+      {
+        name: 'User',
+        schema: UserSchema,
+      },
+    ]),
     ProductModule,
     VendorModule,
     SharedModule,
+    CartModule,
+    UserModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
