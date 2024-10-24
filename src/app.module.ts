@@ -19,24 +19,6 @@ import { ProductSchema } from './product/schema/product.model';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    MongooseModule.forFeature([
-      {
-        name: 'Product',
-        schema: ProductSchema,
-      },
-      {
-        name: 'Vendor',
-        schema: VendorSchema,
-      },
-      {
-        name: 'Cart',
-        schema: CartSchema,
-      },
-      {
-        name: 'User',
-        schema: UserSchema,
-      },
-    ]),
     ProductModule,
     VendorModule,
     SharedModule,
