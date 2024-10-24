@@ -6,6 +6,18 @@ import { UpdateVendorDto } from './dto/update-vendor.dto';
 @Controller('vendor')
 export class VendorController {
   constructor(private readonly vendorService: VendorService) {}
+
+  @Post()
+  /**
+   * Creates a new vendor.
+   * @param createVendorDto The data to create the vendor with.
+   * @returns The newly created vendor.
+   * @throws ConflictException if a vendor with the same name already exists.
+   */
+  create(@Body() createVendorDto: CreateVendorDto) {
+    return this.vendorService.createVendor(createVendorDto);
+  }
+
   @Get(':id')
   /**
    * Finds a single vendor by its id.

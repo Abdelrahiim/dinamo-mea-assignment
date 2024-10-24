@@ -4,7 +4,7 @@ import { Product } from "src/product/schema/product.model";
 
 @Schema({ timestamps: true })
 export class Vendor {
-  @Prop({ required: true })
+  @Prop({ required: true , unique: true })
   name: string;
 
   @Prop({ required: true })
@@ -13,11 +13,11 @@ export class Vendor {
   @Prop({ required: true })
   phoneNumber: string;
 
-  @Prop({ required: true })
+  @Prop()
   totalRate: string;
 
-  @Prop([{ type: Types.ObjectId, ref: 'Product', required: true }])
-  products: Product[];
+  @Prop([{ type: Types.ObjectId, ref: 'Product', default: [] }])
+  products: Types.ObjectId[];
 }
 
 export const VendorSchema = SchemaFactory.createForClass(Vendor);
