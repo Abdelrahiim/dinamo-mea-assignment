@@ -8,12 +8,13 @@ import { VendorModule } from './vendor/vendor.module';
 import { SharedModule } from './shared/shared.module';
 import { CartModule } from './cart/cart.module';
 import { UserModule } from './user/user.module';
-import { OrderModule } from './order/order.module';
+import { OrderModule } from './modules/order/order.module';
 import { CartSchema } from './cart/entities/cart-entity';
 import { CartItemSchema } from './cart/entities/cart-item.entity';
 import { UserSchema } from './user/entities/user.entity';
 import { VendorSchema } from './vendor/entities/vendor.entity';
 import { ProductSchema } from './product/schema/product.model';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProductSchema } from './product/schema/product.model';
     CartModule,
     UserModule,
     OrderModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

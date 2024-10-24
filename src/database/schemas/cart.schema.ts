@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
-import { CartItem, CartItemSchema } from "./cart-item.entity";
+import { CartItem, CartItemSchema } from "./cart-item.schema";
 
 @Schema({ timestamps: true })
 export class Cart {  
