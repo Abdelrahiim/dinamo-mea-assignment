@@ -5,15 +5,28 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from './schema/product.model';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Vendor } from 'src/vendor/entities/vendor.entity';
 
 @Injectable()
 export class ProductService {
-  constructor(@InjectModel(Product.name) private productModel: Model<Product>) {}
 
+  constructor(
+    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(Vendor.name) private vendorModel: Model<Vendor>
+  ) {}
 
-  createProduct(createProductDto: CreateProductDto) {
+  /**
+   * Creates a new product.
+   * @param createProductDto The data to create the product with.
+   * @returns The newly created product.
+   * @throws BadRequestException if the product vendor does not exist.
+   */
+  async createProduct(createProductDto: CreateProductDto) {
     const product = new this.productModel(createProductDto);
-    return product.save();
+    // Push the product to the vendor's products array
+    const vendor = await this.vendorModel.findOneAndUpdate({ _id: product.vendorId }, { $push: { products: product._id } });
+    console.log(vendor)
+    return await product.save();
   }
 
   /**
