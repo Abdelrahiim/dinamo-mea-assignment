@@ -6,29 +6,24 @@ import { UpdateVendorDto } from './dto/update-vendor.dto';
 @Controller('vendor')
 export class VendorController {
   constructor(private readonly vendorService: VendorService) {}
-
-  @Post()
-  create(@Body() createVendorDto: CreateVendorDto) {
-    return this.vendorService.create(createVendorDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.vendorService.findAll();
-  }
-
   @Get(':id')
+  /**
+   * Finds a single vendor by its id.
+   * @param id The id of the vendor to find.
+   * @returns The vendor with the given id.
+   */
   findOne(@Param('id') id: string) {
-    return this.vendorService.findOne(+id);
+    return this.vendorService.findVendorById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVendorDto: UpdateVendorDto) {
-    return this.vendorService.update(+id, updateVendorDto);
+  @Get(':id/products') 
+  /**
+   * Finds and returns all products associated with a vendor.
+   * @param id The id of the vendor whose products are to be found.
+   * @returns A promise that resolves to the list of products associated with the vendor.
+   */
+  findAllVendorProduct(@Param('id') id: string) {
+    return this.vendorService.findVendorProducts(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vendorService.remove(+id);
-  }
 }
