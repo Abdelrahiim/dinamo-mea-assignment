@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order } from 'src/database/schemas/order.schema';
@@ -20,6 +20,9 @@ export class OrderService {
    */
   async createOrder(userId: string, createOrderDto: CreateOrderDto) {
     const cart = await this.cartService.getCart(userId);
+    if (cart.items.length === 0) {
+      throw new ForbiddenException('Cart is empty');
+    }
 
     const order = await this.orderModel.create({
       orderItems: cart.items,
@@ -29,6 +32,8 @@ export class OrderService {
       shippingPrice: createOrderDto.shippingPrice,
       totalPrice: cart.totalPrice + createOrderDto.shippingPrice,
     });
+
+    await this.cartService.clearCart(cart._id.toString());
     return order;
   }
 
@@ -37,9 +42,17 @@ export class OrderService {
    * @param orderId The id of the order to retrieve.
    * @returns The order with the given id.
    */
-  getOrders(orderId: string) {
+  getOrderById(orderId: string) {
     return this.orderModel.findById(orderId);
   }
 
+  /**
+   * Retrieves all orders for the given user.
+   * @param userId The id of the user to retrieve orders for.
+   * @returns The orders for the given user.
+   */
+  getOrdersByUser(userId: string) {
+    return this.orderModel.find({ userId: userId });
+  }
 
 }
