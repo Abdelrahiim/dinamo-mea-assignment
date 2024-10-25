@@ -1,5 +1,6 @@
 import { Schema, Prop,SchemaFactory } from "@nestjs/mongoose";
-import { first } from "rxjs";
+
+export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {

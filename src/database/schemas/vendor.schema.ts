@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import exp from "constants";
 import { Types } from "mongoose";
-import { Product } from "src/product/schema/product.model";
 
+export type VendorDocument = Vendor & Document;
 @Schema({ timestamps: true })
 export class Vendor {
   @Prop({ required: true , unique: true })

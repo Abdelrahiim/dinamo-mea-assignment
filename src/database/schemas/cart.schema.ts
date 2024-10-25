@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
 import { CartItem, CartItemSchema } from "./cart-item.schema";
 
+export type CartDocument = Cart & Document;
 @Schema({ timestamps: true })
 export class Cart {  
   @Prop({ required: true, type: Types.ObjectId, ref: 'User', unique: true })

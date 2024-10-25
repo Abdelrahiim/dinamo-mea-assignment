@@ -3,7 +3,7 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from '../../database/schemas/product.schema';
-import { Vendor, VendorSchema } from 'src/vendor/entities/vendor.entity';
+import { Vendor, VendorSchema } from 'src/database/schemas/vendor.schema';
 
 @Module({
   imports: [

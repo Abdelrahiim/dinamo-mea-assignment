@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
 
+export type CartItemDocument = CartItem & Document;
+
 @Schema({ _id: false })
 export class CartItem {
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true, unique: true })

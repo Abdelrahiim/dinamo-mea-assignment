@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Types } from "mongoose"
 
+export type ProductDocument = Product & Document
+
 @Schema({ timestamps: true })
 export class Product {
   @Prop({ type: Types.ObjectId, ref: 'Vendor' })
