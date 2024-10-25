@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -29,6 +29,16 @@ export class OrderController {
    */
   async getOrder(@Param('orderId') orderId: string) {
     return this.orderService.getOrderById(orderId);
+  }
+
+  @Patch(':orderId')
+  /**
+   * Cancels an order by its id.
+   * @param orderId The id of the order to cancel.
+   * @returns The canceled order.
+   */
+  async cancelOrder(@Param('orderId') orderId: string) {
+    return this.orderService.cancelOrderById(orderId);
   }
 
   @Get('')

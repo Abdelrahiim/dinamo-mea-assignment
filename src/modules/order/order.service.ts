@@ -55,4 +55,8 @@ export class OrderService {
     return this.orderModel.find({ userId: userId });
   }
 
+
+  cancelOrderById(orderId: string) {
+    return this.getOrderById(orderId).updateOne({ status: 'cancelled' });
+  }
 }
